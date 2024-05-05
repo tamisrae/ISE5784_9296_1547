@@ -5,13 +5,14 @@ import test.Main;
 import java.util.Objects;
 
 public class Point {
-    final protected Double3 xyz;
+    public static final Point ZERO = new Point(Double3.ZERO);
+    protected final Double3 xyz;
 
     public Point(double x, double y, double z) {
         xyz = new Double3(x,y,z);
     }
 
-    Point(Double3 xyz) {
+    public Point(Double3 xyz) {
         this.xyz = xyz;
     }
 
@@ -26,7 +27,7 @@ public class Point {
         return "Point{" + xyz.toString() + '}';
     }
 
-    public Vector Subtract(Point point) {
+    public Vector subtract(Point point) {
        return new Vector(xyz.subtract(point.xyz));
     }
 
