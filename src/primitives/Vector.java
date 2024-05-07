@@ -108,6 +108,7 @@ public class Vector extends Point {
         return new Vector(xyz.reduce((len)));
     }
 
+
     @Override
     public String toString() {
         return "Vector{" + this.xyz + "}";
