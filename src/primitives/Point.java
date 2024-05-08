@@ -15,7 +15,7 @@ public class Point {
      * ctor
      * @param x first coordinate
      * @param y second coordinate
-     * @param z third coordinate
+     *  @param z third coordinate
      */
     public Point(double x, double y, double z) {
         xyz = new Double3(x,y,z);
