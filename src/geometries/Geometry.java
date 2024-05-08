@@ -9,7 +9,7 @@ import primitives.Vector;
 public abstract interface Geometry {
 
     /**
-     * virtual function for get the normal
+     * abstract function for get the normal
      * @param point on the shape
      * @return normal vector of the shape at the point
      */
