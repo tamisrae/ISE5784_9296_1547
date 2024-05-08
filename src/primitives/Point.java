@@ -9,7 +9,7 @@ import java.util.Objects;
  */
 public class Point {
     public static final Point ZERO = new Point(Double3.ZERO);
-    protected final Double3 xyz;
+    final Double3 xyz;
 
     /**
      * ctor

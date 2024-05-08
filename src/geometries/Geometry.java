@@ -6,7 +6,7 @@ import primitives.Vector;
 /**
  * An interface for Geometric shapes
  */
-public abstract interface Geometry {
+public interface Geometry {
 
     /**
      * abstract function for get the normal
