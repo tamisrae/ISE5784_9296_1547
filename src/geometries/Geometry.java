@@ -4,7 +4,7 @@ import primitives.Point;
 import primitives.Vector;
 
 /**
- *An interface for Geometric shapes
+ * An interface for Geometric shapes
  */
 public abstract interface Geometry {
 
