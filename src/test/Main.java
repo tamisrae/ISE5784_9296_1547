@@ -8,7 +8,7 @@ import geometries.*;
 
 /**
  * Test program for the 1st stage
- * @author Michal Shlomo and Tamar Israeli
+ * @author Dan Zilberstein
  */
 public final class Main {
 

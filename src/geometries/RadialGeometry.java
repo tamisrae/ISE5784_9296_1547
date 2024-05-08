@@ -15,7 +15,7 @@ public abstract class RadialGeometry implements Geometry {
      * @param radius of the RadialGeometry
      */
     public RadialGeometry(double radius){
-        this.radius=radius;
+        this.radius = radius;
     }
 
 }

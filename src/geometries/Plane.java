@@ -19,7 +19,7 @@ public class Plane implements Geometry{
      */
     public Plane(Point d1,Point d2, Point d3) {
         this.q = d1;
-        normal=null;
+        normal = null;
     }
 
     /**
@@ -28,8 +28,8 @@ public class Plane implements Geometry{
      * @param point a point to represent the plane
      */
     public Plane(Vector normal, Point point){
-        q=point;
-        this.normal= normal.normalize();
+        q = point;
+        this.normal = normal.normalize();
     }
 
     public Vector getNormal() {
