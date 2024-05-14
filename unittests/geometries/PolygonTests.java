@@ -1,4 +1,4 @@
-package unittests.geometries;
+package geometries;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -62,8 +62,12 @@ public class PolygonTests {
 
       // TC12: Co-located points
       assertThrows(IllegalArgumentException.class, //
-                   () -> new Polygon(new Point(0, 0, 1), new Point(1, 0, 0), new Point(0, 1, 0), new Point(0, 1, 0)),
-                   "Constructed a polygon with vertice on a side");
+                   () -> new Polygon(new Point(0, 0, 1),
+                           new Point(1, 0, 0),
+                           new Point(0, 1, 0),
+                           new Point(0, 1, 0)),
+                   "Constructed a polygon with vertice on a side"
+      );
 
    }
 

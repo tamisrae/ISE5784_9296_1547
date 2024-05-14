@@ -4,7 +4,7 @@ import primitives.Point;
 import primitives.Vector;
 
 /**
- *A class for representing a sphere
+ * A class for representing a sphere
  */
 public class Sphere extends RadialGeometry{
 
@@ -22,6 +22,6 @@ public class Sphere extends RadialGeometry{
 
     @Override
     public Vector getNormal(Point point) {
-        return null;
+        return point.subtract(this.center).normalize();
     }
 }
