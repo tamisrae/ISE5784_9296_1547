@@ -19,7 +19,10 @@ public class Plane implements Geometry{
      */
     public Plane(Point d1,Point d2, Point d3) {
         this.q = d1;
-        normal = null;
+        //normal vector is calculated by the cross product of two vectors
+        //representing two edges of the plane
+        normal = d2.subtract(d1).crossProduct(d2.subtract(d3)).normalize();
+
     }
 
     /**
@@ -36,6 +39,6 @@ public class Plane implements Geometry{
         return normal;
     }
     public Vector getNormal(Point point){
-        return null;
+        return normal;
     }
 }
