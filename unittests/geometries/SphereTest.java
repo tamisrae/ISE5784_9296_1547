@@ -24,7 +24,8 @@ class SphereTest {
         // TC01: test getting a normal vector from any point on sphere
         Sphere sph = new Sphere( 3,new Point(1, 4, 5));
         // ensure there are no exceptions
-        assertDoesNotThrow(() -> sph.getNormal(new Point(4, 4, 5)), "getNormal() throws an unexpected exception");
+        assertDoesNotThrow(() -> sph.getNormal(new Point(4, 4, 5)),
+                "getNormal() throws an unexpected exception");
         // generate the test result
         Vector result = sph.getNormal(new Point(4, 4, 5));
         // ensure |result| = 1
