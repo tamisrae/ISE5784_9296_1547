@@ -1,7 +1,10 @@
 package geometries;
 
 import primitives.Point;
+import primitives.Ray;
 import primitives.Vector;
+import static primitives.Util.*;
+import java.util.List;
 
 /**
  *A class for representing a Plane
@@ -38,4 +41,29 @@ public class Plane implements Geometry{
         return normal;
     }
     public Vector getNormal(Point point){ return normal; }
+
+    /**
+     * Computes the intersection point(s) between the current plane and a given ray.
+     */
+    @Override
+    public List<Point> findIntersections(Ray ray) {
+        if (ray == null) {//ray cannot be null
+            throw new IllegalArgumentException("Ray cannot be null");
+        }
+        if (ray.getHead().equals(this.q)) {//start in the plane
+            return null;
+        }
+        //calculate according to the calculation in the course's book
+        Vector rayToNormal = this.q.subtract(ray.getHead());
+        double numerator = this.normal.dotProduct(rayToNormal);
+        double denominator = this.normal.dotProduct(ray.getDirection());
+        if (isZero(denominator)) {
+            return null;
+        }
+        double t = alignZero(numerator / denominator);
+        if (t > 0) {
+            return List.of(ray.getPoint(t));
+        }
+        return null;
+    }
 }

@@ -79,4 +79,13 @@ public class Point {
         double z = this.xyz.d3 - point.xyz.d3;
         return x * x + y * y + z * z;
     }
+
+    /**
+     * getter for the first coordinate.
+     *
+     * @return the first coordinate.
+     */
+    public double getX() {
+        return xyz.d1;
+    }
 }
