@@ -87,4 +87,21 @@ public class Point {
     public double getX() {
         return xyz.d1;
     }
+
+    /**
+     * getter for the second coordinate.
+     * @return the second coordinate.
+     */
+    public double getY() {
+        return xyz.d2;
+    }
+
+    /**
+     * getter for the third coordinate.
+     * @return the third coordinate.
+     */
+    public double getZ() {
+        return xyz.d3;
+    }
+
 }

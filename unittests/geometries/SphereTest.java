@@ -45,11 +45,12 @@ class SphereTest {
         // TC01: Ray's line is outside the sphere (0 points)
         assertNull(sphere.findIntersections(new Ray(new Point(-1, 0, 0), new Vector(1, 1, 0))),
                 "Ray's line out of sphere");
-
+        final Point p001 = new Point(0, 0, -1);
         // TC02: Ray starts before and crosses the sphere (2 points)
         Point p1 = new Point(0.4, 0, -0.8);
         Point p2 = new Point(2, 0, 0);
-        List<Point> result = sphere.findIntersections(new Ray(new Point(0, 0, -1), new Vector(2, 0, 1)));
+        List<Point> result = sphere.findIntersections(new Ray(p001, new Vector(2, 0, 1)))
+                        .stream().sorted(Comparator.comparingDouble(p->p.distance(p001))).toList();
         assertEquals(2, result.size(), "Wrong number of points");
         if (result.get(0).getX() > result.get(1).getX())
             result = List.of(result.get(1), result.get(0));

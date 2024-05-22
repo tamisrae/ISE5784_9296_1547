@@ -23,11 +23,13 @@ public class Triangle extends Polygon {
 
     @Override
     public List<Point> findIntersections(Ray ray) {
-        if (super.plane.findIntersections(ray) == null) {//at first find if thar is intersection with the plane of the triangle
-            return null;
-        }
         //calculate according to the calculation in the course's book
         Point p = super.plane.findIntersections(ray).get(0);
+
+        if (p == null) {//at first find if thar is intersection with the plane of the triangle
+            return null;
+        }
+
         Vector v1 = this.vertices.get(0).subtract(ray.getHead());
         Vector v2 = this.vertices.get(1).subtract(ray.getHead());
         Vector v3 = this.vertices.get(2).subtract(ray.getHead());
