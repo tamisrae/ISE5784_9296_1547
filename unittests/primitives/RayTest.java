@@ -8,7 +8,7 @@ class RayTest {
 
     @Test
     public void testGetPoint() {
-        Ray ray = new Ray(new Point(0, 0, 1), new Vector(1, 0, 0));
+    Ray ray = new Ray(new Point(0, 0, 1), new Vector(1, 0, 0));
 
     //===== Equivalence Partitions Tests =====
     // TC01: When t is positive, and the wanted point is on the ray itself
@@ -19,7 +19,5 @@ class RayTest {
     //======= Boundary Values Tests =====
     // TC11: When t is 0, and the wanted point is the ray's starting-point
     assertEquals(new Point(0, 0, 1), ray.getPoint(0),"Bad point on the ray's starting-point");
-
-
     }
 }

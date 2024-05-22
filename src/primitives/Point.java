@@ -42,7 +42,7 @@ public class Point {
 
     /**
      * Vector subtraction
-     * @param point
+     * @param point point
      * @return the subtraction between the 2 vectors
      */
     public Vector subtract(Point point) {
@@ -51,7 +51,7 @@ public class Point {
 
     /**
      * Vector subtraction
-     * @param vector
+     * @param vector vector
      * @return the connection between the 2 vectors
      */
     public Point add(Vector vector) {
@@ -60,7 +60,7 @@ public class Point {
 
     /**
      * Calculation of distance between 2 points
-     * @param point
+     * @param point point
      * @return the calculation of distance between 2 points
      */
     public double distance(Point point) {
@@ -70,8 +70,8 @@ public class Point {
 
     /**
      * Calculation of distance between 2 points in a square
-     * @param point
-     * @return the alculation of distance between 2 points in a square
+     * @param point point
+     * @return the calculation of distance between 2 points in a square
      */
     public double distanceSquared(Point point) {
         double x = this.xyz.d1 - point.xyz.d1;
@@ -82,7 +82,6 @@ public class Point {
 
     /**
      * getter for the first coordinate.
-     *
      * @return the first coordinate.
      */
     public double getX() {

@@ -42,9 +42,6 @@ public class Plane implements Geometry{
     }
     public Vector getNormal(Point point){ return normal; }
 
-    /**
-     * Computes the intersection point(s) between the current plane and a given ray.
-     */
     @Override
     public List<Point> findIntersections(Ray ray) {
         if (ray == null) {//ray cannot be null

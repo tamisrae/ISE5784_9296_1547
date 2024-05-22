@@ -21,12 +21,8 @@ public class Triangle extends Polygon {
         super(d1,d2,d3);
     }
 
-    /**
-     Computes the intersection point(s) between the current triangle and a given ray.
-     */
     @Override
     public List<Point> findIntersections(Ray ray) {
-
         if (super.plane.findIntersections(ray) == null) {//at first find if thar is intersection with the plane of the triangle
             return null;
         }
@@ -44,7 +40,7 @@ public class Triangle extends Polygon {
         if (a == 0 || b == 0 || c == 0) {
             return null;
         }
-        if (a * b > 0 && b *c > 0) {
+        if (a * b > 0 && b * c > 0) {
             return List.of(p);
         }
         return null;

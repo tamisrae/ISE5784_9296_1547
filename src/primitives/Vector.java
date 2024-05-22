@@ -29,7 +29,7 @@ public class Vector extends Point {
 
     /**
      * Connection between 2 vectors
-     * @param vector
+     * @param vector vector
      * @return the connection between 2 vectors
      */
     public Vector add(Vector vector) {
@@ -38,7 +38,7 @@ public class Vector extends Point {
 
     /**
      * Multiplication of a vector in a scalar
-     * @param scalar
+     * @param scalar a number
      * @return the multiplication of a vector in a scalar
      */
     public Vector scale(double scalar) {
@@ -47,7 +47,7 @@ public class Vector extends Point {
 
     /**
      * Scalar product between 2 vectors
-     * @param vector
+     * @param vector vector
      * @return the result of scalar product between 2 vectors
      */
     public double dotProduct(Vector vector) {
@@ -58,7 +58,7 @@ public class Vector extends Point {
 
     /**
      * Vector product between 2 vectors
-     * @param vector
+     * @param vector vector
      * @return the result of vector product between 2 vectors
      */
     public Vector crossProduct(Vector vector) {

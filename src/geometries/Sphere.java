@@ -29,9 +29,6 @@ public class Sphere extends RadialGeometry{
         return point.subtract(this.center).normalize();
     }
 
-    /**
-     * Computes the intersection point(s) between the current sphere and a given ray.
-     */
     @Override
     public List<Point> findIntersections(Ray ray) throws IllegalArgumentException {
         if (ray == null) {

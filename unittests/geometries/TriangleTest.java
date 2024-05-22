@@ -27,8 +27,10 @@ class TriangleTest {
         // TC01: test getting a normal vector from a point on triangle
         Point[] pts = {new Point(0, 0, 1), new Point(1, 0, 0), new Point(0, 1, 0)};
         Triangle tri = new Triangle(pts[0], pts[1], pts[2]);
+
         // ensure there are no exceptions
-        assertDoesNotThrow(() -> tri.getNormal(new Point(0, 1, 0)), "getNormal() throws an unexpected exception");
+        assertDoesNotThrow(() -> tri.getNormal(new Point(0, 1, 0)),
+                "getNormal() throws an unexpected exception");
         // generate the test result
         Vector result = tri.getNormal(new Point(0, 0, 1));
         // ensure |result| = 1
@@ -52,10 +54,12 @@ class TriangleTest {
                 new Vector(0, -1, 1)));
         assertEquals(1, result.size(), "Wrong number of points");
         assertEquals(List.of(p), result, "Ray crosses triangle");
+
         // TC02: The point of intersection is outside the triangle opposite a side (0 points)
         result = triangle.findIntersections(new Ray(new Point(0, 2, 0),
                 new Vector(2, -1, 1)));
         assertNull(result, "Ray's line out of triangle");
+
         // TC03: The point of intersection is outside the triangle opposite a vertex (0 points)
         result = triangle.findIntersections(new Ray(new Point(0, 2, 1),
                 new Vector(0, 1, 1)));
@@ -66,10 +70,12 @@ class TriangleTest {
         result = triangle.findIntersections(new Ray(new Point(0, 2, 0),
                 new Vector(-0.5, -1, 1)));
         assertNull(result, "Wrong number of points");
+
         // TC12: The intersection point is on a vertex (0 points)
         result = triangle.findIntersections(new Ray(new Point(0, 2, 0),
                 new Vector(2, -2, 1)));
         assertNull(result, "Wrong number of points");
+
         // TC13: The intersection point is on the continuation of an edge (0 points)
         result = triangle.findIntersections(new Ray(new Point(0, 2, 0),
                 new Vector(-1, -2, 1)));

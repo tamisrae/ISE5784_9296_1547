@@ -12,7 +12,7 @@ public class Ray {
     /**
      * ctor
      * @param point Start point
-     * @param vector The diraction
+     * @param vector The direction
      */
     public Ray (Point point, Vector vector){
         head = point;
@@ -21,7 +21,6 @@ public class Ray {
 
     /**
      * getter for starting point of the ray head
-     *
      * @return head
      */
     public Point getHead() {
@@ -30,7 +29,6 @@ public class Ray {
 
     /**
      * getter for direction vector of the ray direction
-     *
      * @return direction
      */
     public Vector getDirection() {
@@ -39,7 +37,6 @@ public class Ray {
 
     /**
      * getter for the value of progress of length t on the starting point
-     *
      * @param t The parameter value.
      * @return The point on the line corresponding to the parameter value.
      */
