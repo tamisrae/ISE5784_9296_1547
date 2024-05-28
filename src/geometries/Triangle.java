@@ -24,11 +24,9 @@ public class Triangle extends Polygon {
     @Override
     public List<Point> findIntersections(Ray ray) {
         //calculate according to the calculation in the course's book
-        Point p = super.plane.findIntersections(ray).get(0);
-
-        if (p == null) {//at first find if thar is intersection with the plane of the triangle
+        List<Point> points = super.plane.findIntersections(ray);
+        if (points == null) //at first find if thar is intersection with the plane of the triangle
             return null;
-        }
 
         Vector v1 = this.vertices.get(0).subtract(ray.getHead());
         Vector v2 = this.vertices.get(1).subtract(ray.getHead());
@@ -43,7 +41,7 @@ public class Triangle extends Polygon {
             return null;
         }
         if (a * b > 0 && b * c > 0) {
-            return List.of(p);
+            return points;
         }
         return null;
     }

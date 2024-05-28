@@ -29,12 +29,10 @@ public class Camera implements Cloneable{
     /**
      * empty constructor
      */
-    private Camera() {
-    }
+    private Camera() {}
 
     /**
      * getter for Camera location.
-     *
      * @return Camera location.
      */
     public Point getLocation() {
@@ -43,7 +41,6 @@ public class Camera implements Cloneable{
 
     /**
      * getter for above the Camera.
-     *
      * @return above the Camera.
      */
     public Vector getVUp() {
@@ -52,7 +49,6 @@ public class Camera implements Cloneable{
 
     /**
      * getter for Camera direction.
-     *
      * @return Camera direction.
      */
     public Vector getVTo() {
@@ -61,7 +57,6 @@ public class Camera implements Cloneable{
 
     /**
      * getter for view plane height.
-     *
      * @return view plane height.
      */
     public double getViewPlaneH() {
@@ -70,7 +65,6 @@ public class Camera implements Cloneable{
 
     /**
      * getter for view plane width.
-     *
      * @return view plane width.
      */
     public double getViewPlaneW() {
@@ -79,57 +73,100 @@ public class Camera implements Cloneable{
 
     /**
      * getter for view plane distance.
-     *
      * @return view plane distance.
      */
     public double getViewPlaneD() {
         return viewPlaneD;
     }
 
-    public static Builder getBuilder()
-    {
+    public static Builder getBuilder() {
         return new Builder();
     }
 
-    public Ray constructRay(int nX, int nY, int j, int i)
-    {return null;
+    public Ray constructRay(int nX, int nY, int j, int i) {
+        Point pc = location.add(vTo.scale(viewPlaneD));     // center of the view plane
+        double Ry = viewPlaneH/(double)nY;                      // Ratio - pixel height
+        double Rx = viewPlaneW/(double)nX;                       // Ratio - pixel width
+
+        double yJ = alignZero(-(i - ((double)nY - 1) / 2) * Ry);       // move pc Yi pixels
+        double xJ = alignZero((j - ((double)nX - 1) / 2) * Rx);        // move pc Xj pixels
+
+        Point PIJ = pc;
+        if(!isZero(xJ))  PIJ = PIJ.add(vRight.scale(xJ));
+        if(!isZero(yJ))  PIJ = PIJ.add(vUp.scale(yJ));
+
+        return new Ray(location, PIJ.subtract(location));
     }
 
     /**
      * inner class
      */
-    public static class Builder{
-      final Camera camera= new Camera();
-        public Builder setLocation(Point location){
+    public static class Builder {
+
+        private final Camera camera = new Camera();
+
+        /**
+         * Set the location of the camera.
+         *
+         * @param location the location point of the camera.
+         * @return the Builder object itself for method chaining.
+         * @throws IllegalArgumentException if the location is null
+         */
+        public Builder setLocation(Point location) throws IllegalArgumentException{
             if (location == null) {
                 throw new IllegalArgumentException("Location cannot be null");
             }
-          camera.location=location;
-          return this;
+            camera.location = location;
+            return this;
         }
-        public Builder setDirection(Vector up, Vector to){
-            if (to == null || up == null) {
+
+        /**
+         * Set the direction vectors of the camera.
+         *
+         * @param vTo the forward direction vector.
+         * @param vUp the up direction vector.
+         * @return the Builder object itself for method chaining.
+         * @throws IllegalArgumentException if the vectors are null or not orthogonal
+         */
+        public Builder setDirection(Vector vTo, Vector vUp) throws IllegalArgumentException{
+            if (vTo == null || vUp == null) {
                 throw new IllegalArgumentException("Direction vectors cannot be null");
             }
-            if (!isZero(to.dotProduct(up))) {
+            if (!isZero(vTo.dotProduct(vUp))) {
                 throw new IllegalArgumentException("vTo and vUp must be orthogonal");
             }
-            camera.vUp=up;
-            camera.vTo=to;
+            camera.vTo = vTo.normalize();
+            camera.vUp = vUp.normalize();
             return this;
         }
-        public  Builder setVpSize(double width,double height){
-            if (alignZero(width) <= 0 || alignZero(height) <= 0)
-                throw new IllegalArgumentException("The height and width must be greater than zero");
-            camera.viewPlaneW=width;
-            camera.viewPlaneH=height;
+
+        /**
+         * Set the size of the view plane.
+         * @param width the width of the view plane.
+         * @param height the height of the view plane.
+         * @return the Builder object itself for method chaining.
+         * @throws IllegalArgumentException if the dimensions aren't positive
+         */
+        public Builder setVpSize(double width, double height) throws IllegalArgumentException  {
+            if (width <= 0 || height <= 0) {
+                throw new IllegalArgumentException("View plane dimensions must be positive");
+            }
+            camera.viewPlaneW = width;
+            camera.viewPlaneH = height;
             return this;
         }
-        public Builder setVpDistance(double distance){
+
+        /**
+         * Set the distance between the camera and the view plane.
+         * @param distance the distance between the camera and the view plane.
+         * @return the Builder object itself for method chaining.
+         * @throws IllegalArgumentException if the distance is not positive
+         */
+        public Builder setVpDistance(double distance) throws IllegalArgumentException {
             if (distance <= 0) {
                 throw new IllegalArgumentException("View plane distance must be positive");
             }
-            camera.viewPlaneD=distance;
+            camera.viewPlaneD = distance;
             return this;
         }
 
@@ -165,3 +202,5 @@ public class Camera implements Cloneable{
         }
     }
 }
+
+

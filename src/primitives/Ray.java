@@ -32,7 +32,7 @@ public class Ray {
      * @return direction
      */
     public Vector getDirection() {
-        return direction;
+        return this.direction;
     }
 
     /**
@@ -43,4 +43,19 @@ public class Ray {
     public Point getPoint(double t) {
         return isZero(t) ? head : head.add(direction.scale(t));
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        return (obj instanceof Ray other)
+                && this.head.equals(other.head)
+                && this.direction.equals(other.direction);
+    }
+
+    @Override
+    public String toString() {
+        return head+" "+direction;
+    }
+
 }
+
