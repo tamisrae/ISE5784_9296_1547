@@ -14,17 +14,17 @@ public class Camera implements Cloneable{
     /**
      *The point where the Camera is located.
      */
-    Point location=null;
+    Point location = null;
 
     /**
      * Vector to the right of the Camera, up, and where it was pointing.
      */
-    Vector vUp=null, vTo=null, vRight=null;
+    Vector vUp = null, vTo = null, vRight = null;
 
     /**
      * The height of the view plane, the width of the view plane, and its distance from the camera.
      */
-    double viewPlaneH =0.0, viewPlaneW=0.0, viewPlaneD=0.0;
+    double viewPlaneH = 0.0, viewPlaneW = 0.0, viewPlaneD = 0.0;
 
     /**
      * empty constructor
@@ -85,8 +85,8 @@ public class Camera implements Cloneable{
 
     public Ray constructRay(int nX, int nY, int j, int i) {
         Point pc = location.add(vTo.scale(viewPlaneD));     // center of the view plane
-        double Ry = viewPlaneH/(double)nY;                      // Ratio - pixel height
-        double Rx = viewPlaneW/(double)nX;                       // Ratio - pixel width
+        double Ry = viewPlaneH/(double)nY;                  // Ratio - pixel height
+        double Rx = viewPlaneW/(double)nX;                  // Ratio - pixel width
 
         double yJ = alignZero(-(i - ((double)nY - 1) / 2) * Ry);       // move pc Yi pixels
         double xJ = alignZero((j - ((double)nX - 1) / 2) * Rx);        // move pc Xj pixels
@@ -177,7 +177,7 @@ public class Camera implements Cloneable{
          */
         public Camera build() throws MissingResourceException {
 
-            String missingData="Missing rendering data";
+            String missingData = "Missing rendering data";
 
             camera.vRight = camera.vTo.crossProduct(camera.vUp).normalize();
 
