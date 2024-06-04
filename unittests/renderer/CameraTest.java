@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import primitives.*;
 import renderer.*;
+import scene.Scene;
 //import scene.Scene;
 
 /**
@@ -31,7 +32,8 @@ class CameraTest {
 
       // ============ Equivalence Partitions Tests ==============
       // EP01: 4X4 Inside (1,1)
-      Camera camera1 = cameraBuilder.setVpSize(8, 8).build();
+
+      Camera camera1 = cameraBuilder.setVpSize(8, 8).setVpDistance(1).build();
       assertEquals(new Ray(Point.ZERO, new Vector(1, -1, -10)),
               camera1.constructRay(4, 4, 1, 1), badRay);
 

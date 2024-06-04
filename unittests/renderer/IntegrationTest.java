@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
+import scene.Scene;
 
 import java.util.List;
 
@@ -46,7 +47,11 @@ public class IntegrationTest {
     @Test
     void sphereTest() {
         //TC01: test sphere with 2 intersections
-        Camera camera1=cameraBuilder.setLocation( new Point(0, 0, 0)).setVpDistance(1).build();
+        Camera camera1=cameraBuilder.setLocation( new Point(0, 0, 0))
+                .setDirection(new Vector(0, 0, -1), new Vector(0, 1, 0))
+                .setRayTracer(new SimpleRayTracer(new Scene("Test scene")))
+                .setVpSize(3, 3).setVpDistance(1)
+                .setImageWriter(new ImageWriter("base render test", 1000, 1000)).build();
         Sphere s1 = new Sphere( 1,new Point(0, 0, -3));
         int sum1 = sumIntersection(camera1, s1, 3, 3);
 
@@ -54,8 +59,13 @@ public class IntegrationTest {
                 "constructRay() and findIntersections() wrong result");
 
 
+
         //TC02: test sphere with 18 intersections
-        Camera camera2 =cameraBuilder.setLocation( new Point(0, 0, 0.5)).setVpDistance(1).build();
+        Camera camera2 =cameraBuilder.setLocation( new Point(0, 0, 0.5))
+                .setDirection(new Vector(0, 0, -1), new Vector(0, 1, 0))
+                .setRayTracer(new SimpleRayTracer(new Scene("Test scene")))
+                .setVpSize(3, 3).setVpDistance(1)
+                .setImageWriter(new ImageWriter("base render test", 1000, 1000)).build();
         Sphere s2 = new Sphere(2.5,new Point(0, 0, -2.5));
         int sum2 = sumIntersection(camera2, s2, 3, 3);
 
@@ -91,7 +101,11 @@ public class IntegrationTest {
      */
     @Test
     void planeTest() {
-        Camera camera =cameraBuilder.setLocation( new Point(0, 0, 0)).setVpDistance(1).build();
+        Camera camera =cameraBuilder.setLocation( new Point(0, 0, 0))
+                .setDirection(new Vector(0, 0, -1), new Vector(0, 1, 0))
+                .setRayTracer(new SimpleRayTracer(new Scene("Test scene")))
+                .setVpSize(3, 3).setVpDistance(1)
+                .setImageWriter(new ImageWriter("base render test", 1000, 1000)).build();
 
         //TC01: plane parallel to view plane
         Plane p1 = new Plane(new Point(1, 1, -3), new Point(2,1,-3),  new Point(1,2,-3));
@@ -122,7 +136,11 @@ public class IntegrationTest {
 
     @Test
     void TriangleTest() {
-        Camera camera = cameraBuilder.setLocation( new Point(0, 0, 0)).setVpDistance(1).build();
+        Camera camera = cameraBuilder.setLocation( new Point(0, 0, 0))
+                .setDirection(new Vector(0, 0, -1), new Vector(0, 1, 0))
+                .setRayTracer(new SimpleRayTracer(new Scene("Test scene")))
+                .setVpSize(3, 3).setVpDistance(1)
+                .setImageWriter(new ImageWriter("base render test", 1000, 1000)).build();
 
         //TC01: test plane is not parallel to view plane- 1 intersection
         Triangle t1 = new Triangle(new Point(0, 1, -2), new Point(1, -1, -2), new Point(-1, -1, -2));
