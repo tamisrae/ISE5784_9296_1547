@@ -25,7 +25,7 @@ public class IntegrationTest {
      * preventing needles repetitions
      * @return sum of intersections
      */
-    int sumIntersection(Camera camera, Intersectable body, int nX, int nY) {
+    private int sumIntersection(Camera camera, Intersectable body, int nX, int nY) {
         int sum = 0;
         // sum the intersections for each ray from each pixel
         for (int j = 0; j < nX; j++) {
