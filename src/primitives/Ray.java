@@ -65,11 +65,11 @@ public class Ray {
      * @return The closest point to the start of the ray.
      */
     public Point findClosestPoint(List<Point> points) {
-        if(points==null || points.isEmpty())
+        if(points == null || points.isEmpty())
             return null;
 
         double closestDistance = head.distance(points.getFirst());
-        Point closetPoint=points.getFirst();
+        Point closetPoint = points.getFirst();
         for(var currentPoint : points){
             double currentDistance= head.distance(currentPoint);
             if(currentDistance < closestDistance) {

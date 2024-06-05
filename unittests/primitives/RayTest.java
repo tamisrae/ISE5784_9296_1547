@@ -30,7 +30,7 @@ class RayTest {
     void testFindClosestPoint() {
         // ============ Equivalence Partition Test ==============
         // TC01: the closest point is in the middle of the list.
-        Ray r = new Ray(new Point(1,1,1),new Vector(2,2,2));
+        Ray r = new Ray(new Point(1,1,1), new Vector(2,2,2));
         Point p1 = new Point(3,2,3);
         Point p2 = new Point(1, 2, 1);
         Point p3 = new Point(3, 4, 5);
