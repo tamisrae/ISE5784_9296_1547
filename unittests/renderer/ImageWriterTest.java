@@ -22,8 +22,8 @@ class ImageWriterTest {
         final int height = 501;
         // Set the interval for alternating colors
         final int step = 50;
-        final Color color1 = new Color(BLUE);
-        final Color color2 = new Color(RED);
+        final Color color1 = new Color(161,251,142);//grid
+        final Color color2 = new Color(251,106,106);//Background
 
         // Create a new ImageWriter object with specified dimensions
         ImageWriter images = new ImageWriter("images", width, height);
