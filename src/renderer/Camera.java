@@ -298,7 +298,7 @@ public class Camera implements Cloneable {
             }
             if(camera.imageWriter == null)
                 throw new MissingResourceException(missingData, Camera.class.getName(), "image_writer");
-            if(camera.rayTrace==null)
+            if(camera.rayTrace == null)
                 throw new MissingResourceException(missingData, Camera.class.getName(), "rayTrace");
             try {
                 return (Camera) camera.clone();

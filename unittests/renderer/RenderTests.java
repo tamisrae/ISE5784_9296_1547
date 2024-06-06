@@ -60,4 +60,24 @@ public class RenderTests {
     .printGrid(100, new Color(YELLOW))
     .writeToImage();
     }*/
+
+   @Test
+   public void renderMyTest() {
+       scene.geometries.add((new Sphere(25d,new Point(0, 0, -100))),
+               new Sphere(25d,new Point(-51, 0, -100)),
+               new Sphere(25d,new Point(51, 0, -100)),
+               new Sphere(25d,new Point(0, -51, -100)),
+               new Sphere(25d,new Point(0, 51, -100))); // down
+       scene.setAmbientLight(new AmbientLight(new Color(255, 191, 191), Double3.ONE))
+               .setBackground(new Color(75, 127, 90));
+
+       // right
+       camera
+               .setImageWriter(new ImageWriter("base my test", 1000, 1000))
+               .build()
+               .renderImage()
+               .printGrid(100, new Color(YELLOW))
+               .writeToImage();
+   }
+
 }
