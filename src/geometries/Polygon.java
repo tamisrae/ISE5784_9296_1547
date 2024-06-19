@@ -1,7 +1,9 @@
 package geometries;
 
+import java.util.LinkedList;
 import java.util.List;
 
+import static primitives.Util.alignZero;
 import static primitives.Util.isZero;
 
 import primitives.Point;
@@ -13,7 +15,7 @@ import primitives.Vector;
  * system
  * @author Dan Zilberstein
  */
-public class Polygon implements Geometry {
+public class Polygon extends Geometry {
    /** List of polygon's vertices */
    protected final List<Point> vertices;
    /** Associated plane in which the polygon lays */
@@ -83,8 +85,42 @@ public class Polygon implements Geometry {
    @Override
    public Vector getNormal(Point point) { return plane.getNormal(); }
 
+
    @Override
-   public List<Point> findIntersections(Ray ray) {
+   protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
+      Vector v1;
+      Vector v2;
+      Vector n;
+      double t;
+      List<GeoPoint> resultPoints = plane.findGeoIntersections(ray);
+      if (resultPoints == null) // In case there is no intersection with the plane return null
+         return null;
+      boolean positive = true;
+      boolean negative = true;
+      for (int i = 0; i < vertices.size(); i++) {
+         if (i == vertices.size() - 1) {
+            v1 = vertices.get(i).subtract(ray.getHead());
+            v2 = vertices.get(0).subtract(ray.getHead());
+            n = v1.crossProduct(v2).normalize();
+            t = alignZero(n.dotProduct(ray.getDirection()));
+         } else {
+            v1 = vertices.get(i).subtract(ray.getHead());
+            v2 = vertices.get(i + 1).subtract(ray.getHead());
+            n = v1.crossProduct(v2).normalize();
+            t = alignZero(n.dotProduct(ray.getDirection()));
+         }
+         if (t == 0)
+            return null;
+         if (t * 1 < 0)
+            positive = false;
+         else if (t * -1 < 0)
+            negative = false;
+      }
+      if (negative || positive) {
+         LinkedList<GeoPoint> result = new LinkedList<GeoPoint>();
+         result.add(new GeoPoint(this, resultPoints.get(0).point));
+         return result;
+      }
       return null;
    }
 }

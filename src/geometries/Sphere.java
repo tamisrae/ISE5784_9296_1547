@@ -6,6 +6,7 @@ import primitives.Vector;
 import primitives.Util;
 import java.util.*;
 
+import static java.lang.Math.sqrt;
 import static primitives.Util.alignZero;
 
 
@@ -43,8 +44,8 @@ public class Sphere extends RadialGeometry{
         }
         Vector u = center.subtract(ray.getHead());
         double tM = alignZero(ray.getDirection().dotProduct(u));
-        double d = alignZero(Math.sqrt(u.lengthSquared() - tM * tM));
-        double tH = alignZero(Math.sqrt(radius * radius - d * d));
+        double d = alignZero(sqrt(u.lengthSquared() - tM * tM));
+        double tH = alignZero(sqrt(radius * radius - d * d));
         double t1 = alignZero(tM + tH);
         double t2 = alignZero(tM - tH);
 
@@ -68,5 +69,29 @@ public class Sphere extends RadialGeometry{
             return List.of(ray.getPoint(t1));
         else
             return List.of(ray.getPoint(t2));
+    }
+
+    @Override
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
+
+        Vector pointToCenter;
+        try {
+            pointToCenter = center.subtract(ray.getHead());
+        } catch (IllegalArgumentException ignore) {
+            return List.of(new GeoPoint(this, ray.getPoint(radius)));
+        }
+
+        double tm = pointToCenter.dotProduct(ray.getDirection());
+        double distanceFromCenterSquared = pointToCenter.dotProduct(pointToCenter) - tm * tm;
+        double thSquared = radius*radius- distanceFromCenterSquared;
+        //check that ray crosses area of sphere, if not then return null
+        if (alignZero(thSquared) <= 0) return null;
+
+        double th = sqrt(thSquared);
+        double secondDistance = tm + th;
+        if (alignZero(secondDistance) <= 0) return null;
+        double firstDistance = tm - th;
+        GeoPoint gp2 = new GeoPoint(this, ray.getPoint(secondDistance));
+        return firstDistance <= 0 ? List.of(gp2) : List.of(new GeoPoint(this, ray.getPoint(firstDistance)), gp2);
     }
 }

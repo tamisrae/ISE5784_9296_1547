@@ -22,9 +22,10 @@ public class Triangle extends Polygon {
     }
 
     @Override
-    public List<Point> findIntersections(Ray ray) {
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
         //calculate according to the calculation in the course's book
-        List<Point> points = super.plane.findIntersections(ray);
+        //List<Point> points = super.plane.findIntersections(ray);
+        List<GeoPoint> points = this.plane.findGeoIntersections(ray);
         if (points == null) //at first find if thar is intersection with the plane of the triangle
             return null;
 
@@ -41,7 +42,7 @@ public class Triangle extends Polygon {
             return null;
         }
         if (a * b > 0 && b * c > 0) {
-            return points;
+            return List.of(new GeoPoint(this, points.get(0).point));
         }
         return null;
     }

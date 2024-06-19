@@ -9,7 +9,7 @@ import java.util.List;
 /**
  *A class for representing a Plane
  */
-public class Plane implements Geometry{
+public class Plane extends Geometry{
 
     private final Point q;
     private final Vector normal;
@@ -43,7 +43,7 @@ public class Plane implements Geometry{
     public Vector getNormal(Point point){ return normal; }
 
     @Override
-    public List<Point> findIntersections(Ray ray) {
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
         if (ray == null) {//ray cannot be null
             throw new IllegalArgumentException("Ray cannot be null");
         }
@@ -59,7 +59,7 @@ public class Plane implements Geometry{
         }
         double t = alignZero(numerator / denominator);
         if (t > 0) {
-            return List.of(ray.getPoint(t));
+            return List.of(new GeoPoint(this, ray.getPoint(t)));
         }
         return null;
     }

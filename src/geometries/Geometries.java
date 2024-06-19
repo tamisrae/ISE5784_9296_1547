@@ -9,7 +9,7 @@ import java.util.List;
  *Class for a legend of geometries
  * @author Michal and Tamar
  */
-public class Geometries implements Intersectable{
+public class Geometries extends Intersectable{
     final private List<Intersectable> geometries = new LinkedList<>();
 
     /**
@@ -35,11 +35,11 @@ public class Geometries implements Intersectable{
     }
 
     @Override
-    public List<Point> findIntersections(Ray ray) {
-        List<Point> result = null;
-        List<Point> toAdd = null;
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
+        List<GeoPoint> result = null;
+        List<GeoPoint> toAdd = null;
         for (Intersectable geo : geometries) {
-            toAdd = geo.findIntersections(ray);
+            toAdd = geo.findGeoIntersections(ray);
             if (toAdd != null) {
                 if(result==null) {
                     result = new LinkedList<>();
@@ -49,4 +49,5 @@ public class Geometries implements Intersectable{
         }
         return result;
     }
+
 }
