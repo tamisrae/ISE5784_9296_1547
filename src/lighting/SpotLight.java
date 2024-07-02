@@ -13,7 +13,7 @@ import static primitives.Util.alignZero;
 public class SpotLight extends PointLight {
 
     private final Vector direction;
-
+    private double NarrowBeam = 1;
 
     /**
      * Constructor that sets the light's intensity.
@@ -32,11 +32,11 @@ public class SpotLight extends PointLight {
      *Stregth of light,getIntensity
      */
     @Override
-    public Color getIntensity(Point p){
-        double d2 = position.distanceSquared(p);
-        double d = Math.sqrt(d2);
-        return intensity.scale(Math.max(0, direction.dotProduct(getL(p)))).scale(1.0d/ (kC + kL *d + kQ *d2));
-
+    public Color getIntensity(Point p) {
+        double cos = alignZero(direction.dotProduct(getL(p)));
+        return NarrowBeam != 1
+                ? super.getIntensity(p).scale(Math.pow(Math.max(0, direction.dotProduct(getL(p))), NarrowBeam))
+                : super.getIntensity(p).scale(Math.max(0, direction.dotProduct(getL(p))));
     }
 
     /**
@@ -73,5 +73,10 @@ public class SpotLight extends PointLight {
         return this;
     }
 
+    public SpotLight setNarrowBeam(double NarrowBeam) {
+        this.NarrowBeam=NarrowBeam;
+        return this;
+    }
 
 }
+

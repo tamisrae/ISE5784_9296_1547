@@ -58,11 +58,27 @@ public class PointLight extends Light implements LightSource {
     }
 
 
+    /**
+     * Calculate and return the intensity light on specific point
+     *
+     * @param point the point on the object (Point)
+     * @return the intensity (Color)
+     */
     @Override
     public Color getIntensity(Point point) {
-        double d2 = position.distanceSquared(point);
-        return intensity.reduce(kC + kL * Math.sqrt(d2) + kQ * d2);
+        // The intensity of the color of the light
+        // (the distribution of the light in the surface area)
+        // is proportional to squared distance
+
+        //Calculate the denominator of the proportion
+        double distance = this.position.distance(point);
+        double distanceSquared = distance * distance;
+        double factor = this.kC + this.kL * distance + this.kQ * distanceSquared;
+
+        //Return the final intensity
+        return getIntensity().scale(1/factor);
     }
+
 
     @Override
     public Vector getL(Point point) {
