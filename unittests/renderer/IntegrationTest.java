@@ -52,7 +52,7 @@ public class IntegrationTest {
                 .setRayTracer(new SimpleRayTracer(new Scene("Test scene")))
                 .setVpSize(3, 3).setVpDistance(1)
                 .setImageWriter(new ImageWriter("base render test", 1000, 1000)).build();
-        Sphere s1 = new Sphere( 1,new Point(0, 0, -3));
+        Sphere s1 = new Sphere(1,new Point(0, 0, -3));
         int sum1 = sumIntersection(camera1, s1, 3, 3);
 
         assertEquals(2, sum1,

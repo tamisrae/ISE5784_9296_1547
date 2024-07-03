@@ -95,3 +95,7 @@ public class Sphere extends RadialGeometry{
         return firstDistance <= 0 ? List.of(gp2) : List.of(new GeoPoint(this, ray.getPoint(firstDistance)), gp2);
     }
 }
+
+
+
+

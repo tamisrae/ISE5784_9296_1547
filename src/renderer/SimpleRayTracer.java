@@ -22,6 +22,21 @@ public class SimpleRayTracer extends RayTracerBase {
         super(scene);
     }
 
+    private static final double DELTA = 0.1;
+
+
+    private boolean unshaded(GeoPoint gp, Vector l, Vector n,LightSource ls){
+        Vector lightDirection=l.scale(-1);
+        Ray ray=new Ray(gp.point,lightDirection);
+        List<Point> intersections=scene.geometries.findIntersections(ray);
+        if (intersections!=null){
+            for (Point point:intersections){
+                if(point.distance(ray.getHead())>ls.getDistance(point))
+                    return false;
+            }
+        } 
+        return true;
+    }
     /**
      * Get the color of an intersection point
      * @param point point of intersection
@@ -63,7 +78,7 @@ public class SimpleRayTracer extends RayTracerBase {
             Vector l = lightSource.getL(intersection.point);
             double nl = alignZero(n.dotProduct(l));
 
-            if (nl * nv > 0) { // sign(nl) == sign(nv)
+            if ((nl * nv > 0)&&unshaded(intersection,l,n,lightSource)) { // sign(nl) == sign(nv)
                 Color lightIntensity = lightSource.getIntensity(intersection.point);
                 color = color.add(calcDiffuse(kd, nl, lightIntensity),
                         calcSpecular(ks, l, n, nl, v, nShininess, lightIntensity));

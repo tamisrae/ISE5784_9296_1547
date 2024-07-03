@@ -2,73 +2,51 @@ package lighting;
 
 import primitives.Color;
 import primitives.Point;
+import primitives.Util;
 import primitives.Vector;
 
 import static primitives.Util.alignZero;
 
-/**
- * SpotLight class
- */
-
-public class SpotLight extends PointLight {
-
-    private final Vector direction;
-    private double NarrowBeam = 1;
-
+public class SpotLight extends PointLight{
+    private Vector dir;
+    private double NarrowBeam=1;
     /**
-     * Constructor that sets the light's intensity.
+     * constructor for the intensity
      *
-     * @param intensity the light's intensity.
-     * @param position  the light's position.
-     * @param direction the light's direction.
+     * @param color     of the intensity of the source of the light
+     * @param direction
      */
-    public SpotLight(Color intensity, Point position, Vector direction) {
-        super(intensity, position);
-        this.direction = direction.normalize();
+    public SpotLight(Color color, Point position, Vector direction) {
+        super(color, position);
+        this.dir = direction.normalize();
     }
-
-
     /**
-     *Stregth of light,getIntensity
-     */
-    @Override
-    public Color getIntensity(Point p) {
-        double cos = alignZero(direction.dotProduct(getL(p)));
-        return NarrowBeam != 1
-                ? super.getIntensity(p).scale(Math.pow(Math.max(0, direction.dotProduct(getL(p))), NarrowBeam))
-                : super.getIntensity(p).scale(Math.max(0, direction.dotProduct(getL(p))));
-    }
-
-    /**
-     * setter for kC
+     * setkC function
      *
-     * @param kC - new value for kC
-     * @return this PointLight for builder pattern
+     * @param kC
+     * @return
      */
-    @SuppressWarnings("unused")
-    public SpotLight setKc(double kC) {
+    public SpotLight setkC(double kC) {
         super.setKc(kC);
         return this;
     }
 
     /**
-     * setter for kL
-     *
-     * @param kL - new value for kL
-     * @return this PointLight for builder pattern
+     * setkL function
+     * @param kL
+     * @return
      */
-    public SpotLight setKl(double kL) {
+    public SpotLight setkL(double kL) {
         super.setKl(kL);
         return this;
     }
 
     /**
-     * setter for kQ
-     *
-     * @param kQ - new value for kQ
-     * @return this PointLight for builder pattern
+     * setkQ function
+     * @param kQ
+     * @return
      */
-    public SpotLight setKq(double kQ) {
+    public SpotLight setkQ(double kQ) {
         super.setKq(kQ);
         return this;
     }
@@ -77,6 +55,11 @@ public class SpotLight extends PointLight {
         this.NarrowBeam=NarrowBeam;
         return this;
     }
-
+    @Override
+    public Color getIntensity(Point p) {
+        double cos = alignZero(dir.dotProduct(getL(p)));
+        return NarrowBeam != 1
+                ? super.getIntensity(p).scale(Math.pow(Math.max(0, dir.dotProduct(getL(p))), NarrowBeam))
+                : super.getIntensity(p).scale(Math.max(0, dir.dotProduct(getL(p))));
+    }
 }
-

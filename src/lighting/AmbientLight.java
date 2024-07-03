@@ -1,34 +1,32 @@
 package lighting;
+
 import primitives.Color;
 import primitives.Double3;
-/**
- * Represents an ambient light source
- * @author Michal Shlomo and Tamar Israeli
- */
+
 public class AmbientLight extends Light {
+    public static final AmbientLight NONE=new AmbientLight(Color.BLACK,0);
 
     /**
-     * Represents a constant representing no ambient light.
+     * constructor for knowing the intensity after the light factor
+     *
+     * @param Ia - Light illumination (RGB עצמת האור לפי קומפוננטות)
+     * @param Ka - Light factor - מקדם הנחתה של האור
      */
-    public static final AmbientLight NONE = new AmbientLight(Color.BLACK, Double3.ZERO);
+    public AmbientLight(Color Ia, double Ka) {
+        //calculation of the intensity after the light factor//
+        super(Ia.scale(Ka));
+    }
 
-
-    /**
-     * Constructs an AmbientLight object with the given intensity and attenuation factor (Double3).
-     * @param iA The intensity of the ambient light.
-     * @param kA        The attenuation factor of the ambient light.
-     */
-    public AmbientLight(Color iA, Double3 kA) {
-        super(iA.scale(kA));
+    public AmbientLight(Color Ia, Double3 Ka) {
+        //calculation of the intensity after the light factor//
+        super(Ia.scale(Ka));
     }
 
     /**
-     * Constructs an AmbientLight object with the given intensity and attenuation factor (double).
-     * @param iA The intensity of the ambient light.
-     * @param kA        The attenuation factor of the ambient light.
+     * default constructor for initialize the background to black
      */
-    public AmbientLight(Color iA, double kA) {
-        super(iA.scale(kA));
+    public AmbientLight() {
+        super(Color.BLACK);
     }
 
 

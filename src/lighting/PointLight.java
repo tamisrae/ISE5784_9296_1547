@@ -1,62 +1,34 @@
 package lighting;
 
-import primitives.*;
+import primitives.Color;
+import primitives.Double3;
+import primitives.Point;
+import primitives.Vector;
 
-/**
- * class PointLight represents a point light source
- */
-public class PointLight extends Light implements LightSource {
+public class PointLight extends Light implements LightSource{
+    private Point position; //The position point of the light source in the space
 
-    protected Point position;
-    protected double kC = 1;
-    protected double kL = 0;
-    protected double kQ = 0;
+    public double getDistance(Point point) {
+        return position.distance(point);
+    }
+    /**
+     * kC is The specular attenuation factor, required to ensure that the denominator in getIntensity > 1
+     * kL is The light source attenuation factor
+     * kQ is The attenuation factor of the energy coming to the point
+     * <p>
+     * the formula is: Il = I0/(Kc + Ki*d + Kq*d^2);
+     */
+    private double kC = 1, kL = 0, kQ = 0; // Light factor -> constant, linear and Quadratic
 
     /**
-     * Constructor that sets the light's intensity.
+     * constructor for the intensity
      *
-     * @param intensity the light's intensity.
-     * @param position  the light's position.
+     * @param intensity of the intensity of the source of the light
      */
-    public PointLight(Color intensity, Point position) {
+    protected PointLight(Color intensity, Point position) {
         super(intensity);
         this.position = position;
     }
-
-    /**
-     * setter for kC
-     *
-     * @param kC - new value for kC
-     * @return this PointLight for builder pattern
-     */
-    @SuppressWarnings("unused")
-    public PointLight setKc(double kC) {
-        this.kC = kC;
-        return this;
-    }
-
-    /**
-     * setter for kL
-     *
-     * @param kL - new value for kL
-     * @return this PointLight for builder pattern
-     */
-    public PointLight setKl(double kL) {
-        this.kL = kL;
-        return this;
-    }
-
-    /**
-     * setter for kQ
-     *
-     * @param kQ - new value for kQ
-     * @return this PointLight for builder pattern
-     */
-    public PointLight setKq(double kQ) {
-        this.kQ = kQ;
-        return this;
-    }
-
 
     /**
      * Calculate and return the intensity light on specific point
@@ -79,11 +51,48 @@ public class PointLight extends Light implements LightSource {
         return getIntensity().scale(1/factor);
     }
 
-
+    /**
+     * Return normalize direction vector from the light source to the object
+     *
+     * @param point the point on the object (Point)
+     * @return normalize direction vector from the light source to the object (Vector)
+     */
     @Override
     public Vector getL(Point point) {
-        return point.subtract(position).normalize();
+        return point.subtract(this.position).normalize();
     }
 
+    /**
+     * setkC function
+     *
+     * @param kC
+     * @return
+     */
+    public PointLight setKc(double kC) {
+        this.kC = kC;
+        return this;
+    }
+
+    /**
+     * setkL function
+     *
+     * @param kL
+     * @return
+     */
+    public PointLight setKl(double kL) {
+        this.kL = kL;
+        return this;
+    }
+
+    /**
+     * setkQ function
+     *
+     * @param kQ
+     * @return
+     */
+    public PointLight setKq(double kQ) {
+        this.kQ = kQ;
+        return this;
+    }
 
 }

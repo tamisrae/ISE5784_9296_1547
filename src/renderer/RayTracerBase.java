@@ -1,35 +1,27 @@
 package renderer;
 
-import primitives.*;
+import primitives.Color;
+import primitives.Ray;
 import scene.Scene;
 
-
-/**
- * An abstract class that serves as a father to the RayTracerBasic class
- * whose implements the operation of coloring the rays sent from the view plane.
- *
- * @author Michal Shlomo and Tamar Israeli
- */
-public abstract class RayTracerBase {
+public  abstract class RayTracerBase {
+    protected Scene scene;
     /**
-     * The scene for rendering.
+     * Constructor that get a scene
+     * @param scene
      */
-    protected final Scene scene;
-
-    /**
-     * Constructor that takes a scene as a parameter.
-     *
-     * @param scene The scene for rendering.
-     */
-    public RayTracerBase(Scene scene) {
+    public RayTracerBase(Scene scene){
         this.scene = scene;
     }
 
     /**
-     * Traces a ray and returns the color.
+     * trace the ray and calculate the rey's intersection point color
+     * and any other object (or the background if the rey's intersection point
+     * doesn't exist)
      *
-     * @param ray The ray to trace.
-     * @return The color of the traced ray.
+     * @param ray
+     * @return
      */
-    public abstract Color traceRay(Ray ray);
+    abstract Color traceRay(Ray ray);
+
 }
