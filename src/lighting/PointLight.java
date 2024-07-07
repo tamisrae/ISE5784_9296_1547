@@ -6,7 +6,7 @@ import primitives.Point;
 import primitives.Vector;
 
 public class PointLight extends Light implements LightSource{
-    private Point position; //The position point of the light source in the space
+    private final Point position; //The position point of the light source in the space
 
     public double getDistance(Point point) {
         return position.distance(point);

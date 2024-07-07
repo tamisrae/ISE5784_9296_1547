@@ -12,14 +12,14 @@ public interface LightSource {
      * @param point point to check the color
      * @return color of the light source
      */
-    public Color getIntensity(Point point);
+    Color getIntensity(Point point);
 
     /**
      * returns the direction of the light source
      * @param point point to check the direction
      * @return direction of the light source
      */
-    public Vector getL(Point point);
+    Vector getL(Point point);
     double getDistance(Point point);
 
 }
