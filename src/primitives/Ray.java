@@ -1,30 +1,40 @@
 package primitives;
-
 import java.util.List;
-
-import static primitives.Util.isZero;
 import geometries.Intersectable.GeoPoint;
 
+import static primitives.Util.*;
 
-/**
- * Represents a ray in space
- */
 public class Ray {
-    final private Point head;
-    final private Vector direction;
+    private final Point head;
+    private final Vector direction;
+    private static final double DELTA = 0.1;
+
 
     /**
-     * ctor
-     * @param point Start point
-     * @param vector The direction
+     *parameters constructor
+     * @param head=point
+     * @param direction=vector
      */
-    public Ray (Point point, Vector vector){
-        head = point;
-        direction = vector.normalize();
+    public Ray(Point head, Vector direction) {
+        this.head = head;
+        this.direction = direction.normalize(); // Assuming normalize() method normalizes the vector
+    }
+    /**
+     * Constructor to initialize ray
+     *
+     * @param p0  point of the ray
+     * @param n   normal vector
+     * @param dir direction vector of the ray
+     */
+    public Ray(Point p0, Vector dir, Vector n) {
+        double delta = dir.dotProduct(n) >= 0 ? DELTA : -DELTA;
+        this.head = p0.add(n.scale(delta));
+        this.direction = dir;
     }
 
+
     /**
-     * getter for starting point of the ray head
+     *
      * @return head
      */
     public Point getHead() {
@@ -32,65 +42,102 @@ public class Ray {
     }
 
     /**
-     * getter for direction vector of the ray direction
+     *
      * @return direction
      */
     public Vector getDirection() {
-        return this.direction;
+        return direction;
     }
 
     /**
-     * getter for the value of progress of length t on the starting point
-     * @param t The parameter value.
-     * @return The point on the line corresponding to the parameter value.
+     * @param obj=point
+     * @return If two points are equal
      */
-    public Point getPoint(double t) {
-        return isZero(t) ? head : head.add(direction.scale(t));
-    }
-
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) return true;
-        return (obj instanceof Ray other)
-                && this.head.equals(other.head)
-                && this.direction.equals(other.direction);
-    }
-
-    @Override
-    public String toString() {
-        return head+" "+direction;
+        if (obj instanceof Ray) {
+            if(head.xyz==((Ray) obj).head.xyz){
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
-     * Finds the closest point to the start of the ray among the given points.
-     * @param points The list of points to check.
-     * @return The closest point to the start of the ray.
+     * @return A string representing the vector class
      */
+    public String tostring(){
+        return "Ray{"+
+                "head='"+head+
+                "direction'"+direction+
+                "}";
+
+    }
+
+
+    /**
+     *get Point at specific distance in the ray's direction
+     *
+     * @param t is a distance for reaching new Point
+     * @return new {@link Point}
+     */
+
+    public Point getPoint(double t) {
+        if (isZero(t)) {
+            // אם המרחק הוא 0, יש להחזיר את נקודת ההתחלה עצמה
+            return head;
+        }
+
+        return head.add(direction.scale(t));
+    }
     public Point findClosestPoint(List<Point> points) {
         return points == null || points.isEmpty() ? null
                 : findClosestGeoPoint(points.stream().map(p -> new GeoPoint(null, p)).toList()).point;
     }
 
     /**
-     * Find closest GeoPoint
-     * @param points list of GeoPoints
-     * @return closest GeoPoint
+     * Return the closest GeoPoint from all intersection GeoPoints
+     *
+     * @param geoPointList list of intersections
+     * @return {@link GeoPoint}
      */
-    public GeoPoint findClosestGeoPoint(List<GeoPoint> points) {
-        if (points == null || points.isEmpty())
+    /**public GeoPoint findClosestGeoPoint(List<GeoPoint> geoPointList) {
+
+     GeoPoint closestPoint = null;
+     double minDistance = Double.MAX_VALUE;
+     double geoPointDistance; // the distance between the "this.p0" to each point in the list
+
+     if (!geoPointList.isEmpty()) {
+     for (var geoPoint : geoPointList) {
+     geoPointDistance = this.head.distance(geoPoint.point);
+     if (geoPointDistance < minDistance) {
+     minDistance = geoPointDistance;
+     closestPoint = geoPoint;
+     }
+     }
+     }
+     return closestPoint;
+     }*/
+    public GeoPoint findClosestGeoPoint(List<GeoPoint> geoPointList) {
+
+        if (geoPointList == null) {
             return null;
-        GeoPoint closest = null;
-        double minDistance = Double.POSITIVE_INFINITY;
-        for (GeoPoint p : points) {
-            double distance = p.point.distance(head);
-            if (distance < minDistance) {
-                closest = p;
-                minDistance = distance;
+        }
+
+        GeoPoint closestPoint = null;
+        double minDistance = Double.MAX_VALUE;
+        double geoPointDistance; // the distance between the "this.p0" to each point in the list
+
+        if (!geoPointList.isEmpty()) {
+            for (var geoPoint : geoPointList) {
+                geoPointDistance = this.head.distance(geoPoint.point);
+                if (geoPointDistance < minDistance) {
+                    minDistance = geoPointDistance;
+                    closestPoint = geoPoint;
+                }
             }
         }
-        return closest;
+        return closestPoint;
     }
-
-
 }
 
