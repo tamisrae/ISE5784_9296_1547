@@ -666,8 +666,8 @@ public class ReflectionRefractionTests {
 
         );
 
-        // scene.lights.add(new PointLight(new Color(100, 100, 150), new Point(0, 6,
-        // 0)));
+         scene.lights.add(new PointLight(new Color(100, 100, 150), new Point(0, 6,
+         0)));
         scene.lights.add(new DirectionalLight(new Color(white).reduce(1), new Vector(-0.4, 1, 0)));
         scene.lights.add(new SpotLight(new Color(white).reduce(2), new Point(20.43303, -7.37104, 13.77329),
                 new Vector(-20.43, 7.37, -13.77)).setkL(0.6));
