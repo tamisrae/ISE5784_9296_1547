@@ -5,7 +5,9 @@ package renderer;
 
 import static java.awt.Color.*;
 
+import geometries.Plane;
 import geometries.Polygon;
+import lighting.DirectionalLight;
 import lighting.PointLight;
 import org.junit.jupiter.api.Test;
 
@@ -171,6 +173,379 @@ public class ReflectionRefractionTests {
    }
 
    @Test
+   public void drawBonus() {
+      Scene scene = new Scene("Bonus");
+
+      // Sun
+      scene.geometries.add(
+              new Sphere(30,new Point(90, 90, 10)) //
+                      .setEmission(new Color(yellow)) //
+                      .setMaterial(new Material().setkD(0.7).setkS(0.1)
+                              .setnShininess(2).setkT(0.9))
+      );
+
+      //drags
+      scene.geometries.add(
+              new Triangle(
+                      new Point(50, 10, 0),
+                      new Point(52, 11, 0),
+                      new Point(55, 9, 0)
+              ).setEmission(new Color(0, 250, 0)) // Red color
+                      .setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(30).setkR(0.5))
+      );
+      scene.geometries.add(
+              new Triangle(
+                      new Point(50, 10, 0),
+                      new Point(49, 11, 0),
+                      new Point(42, 9, 0)
+              ).setEmission(new Color(0, 250, 0)) // Red color
+                      .setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(30).setkR(0.5))
+      );
+      scene.geometries.add(
+              new Triangle(
+                      new Point(48, 10, 0),
+                      new Point(51, 12, 0),
+                      new Point(50, 0, 0)
+              ).setEmission(new Color(0,150,0)) // Red color
+                      .setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(30).setkR(0.5))
+      );
+
+//      //bird
+//      scene.geometries.add(
+//              new Triangle(
+//                      new Point(-50, -50, 0),
+//                      new Point(-51, -52, 0),
+//                      new Point(-55, -60, 0)
+//              ).setEmission(new Color(black)) // Red color
+//                      .setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(30).setkR(0.5))
+//      );
+//      scene.geometries.add(
+//              new Triangle(
+//                      new Point(50, 50, 0),
+//                      new Point(45, 52, 0),
+//                      new Point(40, 54, 0)
+//              ).setEmission(new Color(black)) // Red color
+//                      .setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(30).setkR(0.5))
+//      );
+
+      //floor
+      scene.geometries.add(
+              new Polygon(
+                      new Point(-100, -100, 0),
+                      new Point(100, -100, 0),
+                      new Point(100, -45, 0),
+                      new Point(-100, -45, 0)
+              ).setEmission(new Color(gray)) //
+                      .setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(30).setkR(0.5))
+      );
+      // sky
+      scene.geometries.add(
+              new Polygon(
+                      new Point(-100, 40, 0),
+                      new Point(100, 40, 0),
+                      new Point(100, 100, 0),
+                      new Point(-100, 100, 0)
+              ).setEmission(new Color(0, 0, 200)) //light blue
+                      .setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(30).setkR(0.5))
+      );
+      // first line
+      scene.geometries.add(
+              new Polygon(
+                      new Point(-100, -50, 0),
+                      new Point(-60, -50, 0),
+                      new Point(-60, -30, 0),
+                      new Point(-100, -30, 0)
+              ).setEmission(new Color(150, 75, 0)) // Brown color
+                      .setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(30).setkR(0.5))
+      );
+      scene.geometries.add(
+              new Polygon(
+                      new Point(-60, -50, 0),
+                      new Point(-20, -50, 0),
+                      new Point(-20, -30, 0),
+                      new Point(-60, -30, 0)
+              ).setEmission(new Color(200, 100, 0)) // Brown color
+                      .setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(30).setkR(0.5))
+      );
+      scene.geometries.add(
+              new Polygon(
+                      new Point(-20, -50, 0),
+                      new Point(20, -50, 0),
+                      new Point(20, -30, 0),
+                      new Point(-20, -30, 0)
+              ).setEmission(new Color(150, 75, 0)) // Brown color
+                      .setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(30).setkR(0.5))
+      );
+      scene.geometries.add(
+              new Polygon(
+                      new Point(20, -50, 0),
+                      new Point(60, -50, 0),
+                      new Point(60, -30, 0),
+                      new Point(20, -30, 0)
+              ).setEmission(new Color(200, 75, 0)) // Brown color
+                      .setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(30).setkR(0.5))
+      );
+      scene.geometries.add(
+              new Polygon(
+                      new Point(60, -50, 0),
+                      new Point(100, -50, 0),
+                      new Point(100, -30, 0),
+                      new Point(60, -30, 0)
+              ).setEmission(new Color(200, 100, 0)) // Brown color
+                      .setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(30).setkR(0.5))
+      );
+
+      //second line
+      scene.geometries.add(
+              new Polygon(
+                      new Point(-100, -30, 0),
+                      new Point(-70, -30, 0),
+                      new Point(-70, -10, 0),
+                      new Point(-100, -10, 0)
+              ).setEmission(new Color(200, 75, 0)) // Brown color
+                      .setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(30).setkR(0.5))
+      );
+      scene.geometries.add(
+              new Polygon(
+                      new Point(-70, -30, 0),
+                      new Point(-30, -30, 0),
+                      new Point(-30, -10, 0),
+                      new Point(-70, -10, 0)
+              ).setEmission(new Color(150, 75, 0)) // Brown color
+                      .setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(30).setkR(0.5))
+      );
+      scene.geometries.add(
+              new Polygon(
+                      new Point(-30, -30, 0),
+                      new Point(10, -30, 0),
+                      new Point(10, -10, 0),
+                      new Point(-30, -10, 0)
+              ).setEmission(new Color(200, 75, 0)) // Brown color
+                      .setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(30).setkR(0.5))
+      );
+      scene.geometries.add(
+              new Polygon(
+                      new Point(-30, -30, 0),
+                      new Point(50, -30, 0),
+                      new Point(50, -10, 0),
+                      new Point(-30, -10, 0)
+              ).setEmission(new Color(200, 100, 0)) // Brown color
+                      .setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(30).setkR(0.5))
+      );
+      scene.geometries.add(
+              new Polygon(
+                      new Point(50, -30, 0),
+                      new Point(90, -30, 0),
+                      new Point(90, -10, 0),
+                      new Point(50, -10, 0)
+              ).setEmission(new Color(200, 75, 0)) // Brown color
+                      .setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(30).setkR(0.5))
+      );
+      scene.geometries.add(
+              new Polygon(
+                      new Point(90, -30, 0),
+                      new Point(100, -30, 0),
+                      new Point(100, -10, 0),
+                      new Point(90, -10, 0)
+              ).setEmission(new Color(150, 75, 0)) // Brown color
+                      .setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(30).setkR(0.5))
+      );
+      //third line
+      scene.geometries.add(
+              new Polygon(
+                      new Point(-100, -10, 0),
+                      new Point(-60, -10, 0),
+                      new Point(-60, 10, 0),
+                      new Point(-100, 10, 0)
+              ).setEmission(new Color(200, 100, 0)) // Brown color
+                      .setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(30).setkR(0.5))
+      );
+      scene.geometries.add(
+              new Polygon(
+                      new Point(-60, -10, 0),
+                      new Point(-20, -10, 0),
+                      new Point(-20, 10, 0),
+                      new Point(-60, 10, 0)
+              ).setEmission(new Color(200, 75, 0)) // Brown color
+                      .setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(30).setkR(0.5))
+      );
+      scene.geometries.add(
+              new Polygon(
+                      new Point(-20, -10, 0),
+                      new Point(20, -10, 0),
+                      new Point(20, 10, 0),
+                      new Point(-20, 10, 0)
+              ).setEmission(new Color(150, 75, 0)) // Brown color
+                      .setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(30).setkR(0.5))
+      );
+      scene.geometries.add(
+              new Polygon(
+                      new Point(20, -10, 0),
+                      new Point(60, -10, 0),
+                      new Point(60, 10, 0),
+                      new Point(20, 10, 0)
+              ).setEmission(new Color(200, 100, 0)) // Brown color
+                      .setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(30).setkR(0.5))
+      );
+      scene.geometries.add(
+              new Polygon(
+                      new Point(60, -10, 0),
+                      new Point(100, -10, 0),
+                      new Point(100, 10, 0),
+                      new Point(60, 10, 0)
+              ).setEmission(new Color(150, 75, 0)) // Brown color
+                      .setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(30).setkR(0.5))
+      );
+      //forth line
+      scene.geometries.add(
+              new Polygon(
+                      new Point(-100, 10, 0),
+                      new Point(-70, 10, 0),
+                      new Point(-70, 30, 0),
+                      new Point(-100, 30, 0)
+              ).setEmission(new Color(200, 75, 0)) // Brown color
+                      .setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(30).setkR(0.5))
+      );
+      scene.geometries.add(
+              new Polygon(
+                      new Point(-70, 10, 0),
+                      new Point(-30, 10, 0),
+                      new Point(-30, 30, 0),
+                      new Point(-70, 30, 0)
+              ).setEmission(new Color(150, 75, 0)) // Brown color
+                      .setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(30).setkR(0.5))
+      );
+      scene.geometries.add(
+              new Polygon(
+                      new Point(-30, 10, 0),
+                      new Point(10, 10, 0),
+                      new Point(10, 30, 0),
+                      new Point(-30, 30, 0)
+              ).setEmission(new Color(200, 100, 0)) // Brown color
+                      .setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(30).setkR(0.5))
+      );
+      scene.geometries.add(
+              new Polygon(
+                      new Point(-30, 10, 0),
+                      new Point(50, 10, 0),
+                      new Point(50, 30, 0),
+                      new Point(-30, 30, 0)
+              ).setEmission(new Color(150, 75, 0)) // Brown color
+                      .setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(30).setkR(0.5))
+      );
+      scene.geometries.add(
+              new Polygon(
+                      new Point(50, 10, 0),
+                      new Point(90, 10, 0),
+                      new Point(90, 30, 0),
+                      new Point(50, 30, 0)
+              ).setEmission(new Color(200, 75, 0)) // Brown color
+                      .setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(30).setkR(0.5))
+      );
+      scene.geometries.add(
+              new Polygon(
+                      new Point(90, 10, 0),
+                      new Point(100, 10, 0),
+                      new Point(100, 30, 0),
+                      new Point(90, 30, 0)
+              ).setEmission(new Color(150, 75, 0)) // Brown color
+                      .setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(30).setkR(0.5))
+      );
+      //fifth line
+      scene.geometries.add(
+              new Polygon(
+                      new Point(-100, 30, 0),
+                      new Point(-60, 30, 0),
+                      new Point(-60, 45, 0),
+                      new Point(-100, 45, 0)
+              ).setEmission(new Color(150, 75, 0)) // Brown color
+                      .setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(30).setkR(0.5))
+      );
+      scene.geometries.add(
+              new Polygon(
+                      new Point(-60, 30, 0),
+                      new Point(-20, 30, 0),
+                      new Point(-20, 45, 0),
+                      new Point(-60, 45, 0)
+              ).setEmission(new Color(200, 100, 0)) // Brown color
+                      .setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(30).setkR(0.5))
+      );
+      scene.geometries.add(
+              new Polygon(
+                      new Point(-20, 30, 0),
+                      new Point(20, 30, 0),
+                      new Point(20, 45, 0),
+                      new Point(-20, 45, 0)
+              ).setEmission(new Color(150, 75, 0)) // Brown color
+                      .setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(30).setkR(0.5))
+      );
+      scene.geometries.add(
+              new Polygon(
+                      new Point(20, 30, 0),
+                      new Point(60, 30, 0),
+                      new Point(60, 45, 0),
+                      new Point(20, 45, 0)
+              ).setEmission(new Color(200, 75, 0)) // Brown color
+                      .setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(30).setkR(0.5))
+      );
+      scene.geometries.add(
+              new Polygon(
+                      new Point(60, 30, 0),
+                      new Point(100, 30, 0),
+                      new Point(100, 45, 0),
+                      new Point(60, 45, 0)
+              ).setEmission(new Color(200, 100, 0)) // Brown color
+                      .setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(30).setkR(0.5))
+      );
+
+
+
+
+      // Windows
+      /**
+       scene.geometries.add(
+       new Polygon(
+       new Point(20, -20, 0),
+       new Point(40, -20, 0),
+       new Point(40, 20, 0),
+       new Point(20, 20, 0)
+       ).setEmission(new Color(30, 144, 255)) // Light blue color
+       .setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(30).setkR(0.5))
+       );
+       **/
+
+
+      // Ground plane for reflection
+      scene.geometries.add(
+              new Polygon(
+                      new Point(-100, -100, -50),
+                      new Point(100, -100, -50),
+                      new Point(100, 100, -50),
+                      new Point(-100, 100, -50)
+              ).setEmission(new Color(20, 20, 20)) // Dark gray color
+                      .setMaterial(new Material().setkR(0.7).setkT(0.3))
+      );
+
+      // Add light source
+      scene.lights.add(
+              new SpotLight(new Color(700, 400, 400), new Point(60, 50, 0), new Vector(1, 0, -1))
+                      .setkL(4E-5).setkQ(2E-7));
+
+      // Configure the camera and render the image
+      Camera camera = Camera.getBuilder()
+              .setLocation(new Point(0, 0, 100))
+              .setDirection(new Vector(0, 0, -1), new Vector(0, 1, 0))
+              .setVpDistance(100)
+              .setVpSize(200, 200)
+              .setImageWriter(new ImageWriter("Bonus", 500, 500))
+              .setRayTracer(new SimpleRayTracer(scene))
+              .build();
+
+      camera.renderImage();
+      camera.writeToImage();
+   }
+
+   @Test
    public void drawHouseWithSunReflectionAndShadow() {
       Scene scene = new Scene("House with Sun Reflection and Shadow");
 
@@ -255,5 +630,56 @@ public class ReflectionRefractionTests {
       camera.renderImage();
       camera.writeToImage();
    }
+
+    @Test
+    public void testBlurryGlass() {
+
+        Vector vTo = new Vector(0, 1, 0);
+        Camera.Builder camera =Camera.getBuilder().setLocation(new Point(0,-230,0).add(vTo.scale(-13)))
+                .setDirection(vTo,new Vector(0,0,1))
+                .setVpSize(200d, 200).setVpDistance(1000);
+        ;
+
+        scene.setAmbientLight(new AmbientLight(new Color(gray).reduce(2), new Double3(0.15)));
+
+        for (int i = -4; i < 6; i += 2) {
+            scene.geometries.add(
+                    new Sphere(3,new Point(5 * i, -1.50, -3)).setEmission(new Color(blue).reduce(4).reduce(2))
+                            .setMaterial(new Material().setkD(0.2).setkS(1).setnShininess(80).setkT(0d)),
+
+//                    new Sphere( 3,new Point(5 * i, 5, 3)).setEmission(new Color(BLUE).reduce(2))
+//                            .setMaterial(new Material().setkD(0.2).setkS(1).setnShininess(80).setkT(0d)),
+//                    new Sphere(3,new Point(5 * i, -8, -8)).setEmission(new Color(PINK).reduce(2))
+//                            .setMaterial(new Material().setkD(0.2).setkS(1).setnShininess(80).setkT(0d)),
+
+                    new Polygon(new Point(5 * i - 4, -5, -11), new Point(5 * i - 4, -5, 5), new Point(5 * i + 4, -5, 5),
+                            new Point(5 * i + 4, -5, -11)).setEmission(new Color(250, 235, 215).reduce(2))
+                            .setMaterial(new Material().setkD(0.001).setkS(0.002).setnShininess(1).setkT(0.95)
+                                    .setBlurGlass(i == 4 ? 1 : 1000, 0.9 * (i + 15), 17))
+
+            );
+        }
+
+        scene.geometries.add(new Plane(new Point(1, 10, 1), new Point(2, 10, 1), new Point(5, 10, 0))
+                .setEmission(new Color(white).reduce(3))
+                .setMaterial(new Material().setkD(0.2).setkS(0).setnShininess(0).setkT(0d))
+
+        );
+
+        // scene.lights.add(new PointLight(new Color(100, 100, 150), new Point(0, 6,
+        // 0)));
+        scene.lights.add(new DirectionalLight(new Color(white).reduce(1), new Vector(-0.4, 1, 0)));
+        scene.lights.add(new SpotLight(new Color(white).reduce(2), new Point(20.43303, -7.37104, 13.77329),
+                new Vector(-20.43, 7.37, -13.77)).setkL(0.6));
+
+        ImageWriter imageWriter = new ImageWriter("blurryGlass2", 500, 500);
+        camera.setImageWriter(imageWriter) //
+                .setRayTracer(new SimpleRayTracer(scene)) //
+                .build() //
+                .renderImage()
+                .writeToImage();
+
+    }
+
 
 }

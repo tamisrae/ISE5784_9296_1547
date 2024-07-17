@@ -1,116 +1,111 @@
 package primitives;
 
-/**
- * Represents a vector in space
- */
-public class Vector extends Point {
-
+public class Vector extends Point{
     /**
-     * ctor
-     * @param x first coordinate
-     * @param y second coordinate
-     * @param z third coordinate
+     * A parameter constructor that accepts three numbers and creates a dot
+     * @param x=xyx.d1
+     * @param y=xyz.d2
+     * @param z=xyz.d3
      */
     public Vector(double x, double y, double z) {
         super(x, y, z);
-        if (xyz.equals(Double3.ZERO))
-            throw new IllegalArgumentException("Vector(0,0,0) is not allowed");
+        if (x == Double3.ZERO.d1 && y == Double3.ZERO.d2 && z == Double3.ZERO.d3) {
+            throw new IllegalArgumentException("This Vector is ZERO");
+        }
     }
 
     /**
-     * ctor
-     * @param xyz a point
+     * parameters constructor
+     * @param vec=xyz
      */
-    public Vector(Double3 xyz) {
-        super(xyz);
-        if (xyz.equals(Double3.ZERO))
-            throw new IllegalArgumentException("Vector(0,0,0) is not allowed");
+    public Vector(Double3 vec) {
+        super(vec);
+        if(vec.d1==0&&vec.d2==0&&vec.d3==0) {
+            throw new IllegalArgumentException("This Vector is ZERO");
+        }
+    }
+    /**
+     * @param obj=point
+     * @return If two points are equal
+     */
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
     }
 
     /**
-     * Connection between 2 vectors
-     * @param vector vector
-     * @return the connection between 2 vectors
+     * @return A string representing the vector class
      */
-    public Vector add(Vector vector) {
-        return new Vector(xyz.add(vector.xyz));
-    }
-
-    /**
-     * Multiplication of a vector in a scalar
-     * @param scalar a number
-     * @return the multiplication of a vector in a scalar
-     */
-    public Vector scale(double scalar) {
-        return new Vector(xyz.scale(scalar));
-    }
-
-    /**
-     * Scalar product between 2 vectors
-     * @param vector vector
-     * @return the result of scalar product between 2 vectors
-     */
-    public double dotProduct(Vector vector) {
-        return vector.xyz.d1 * xyz.d1 +
-                vector.xyz.d2 * xyz.d2 +
-                vector.xyz.d3 * xyz.d3;
-    }
-
-    /**
-     * Vector product between 2 vectors
-     * @param vector vector
-     * @return the result of vector product between 2 vectors
-     */
-    public Vector crossProduct(Vector vector) {
-        double ax = xyz.d1;
-        double ay = xyz.d2;
-        double az = xyz.d3;
-
-        double bx = vector.xyz.d1;
-        double by = vector.xyz.d2;
-        double bz = vector.xyz.d3;
-
-        double cx = ay * bz - az * by;
-        double cy = az * bx - ax * bz;
-        double cz = ax * by - ay * bx;
-
-        return new Vector(cx, cy, cz);
-    }
-
-    /**
-     * Calculation of the squared length of the vector
-     * @return the calculation of the squared length of the vector
-     */
-    public double lengthSquared(){
-        return xyz.d1 * xyz.d1 +
-                xyz.d2 * xyz.d2 +
-                xyz.d3 * xyz.d3;
-    }
-
-    /**
-     * Calculate the length of the vector
-     * @return the calculate the length of the vector
-     */
-    public double length() {
-        return Math.sqrt(lengthSquared());
-    }
-
-    /**
-     * Normalization function for a vector
-     * @return the vector after normalization
-     */
-    public Vector normalize(){
-        double len = length();
-        if (len == 0)
-            throw new ArithmeticException("Divide by zero!");
-        if (len == 1)
-            return this;
-        return new Vector(xyz.reduce((len)));
-    }
-
-
     @Override
     public String toString() {
-        return "Vector{" + this.xyz + "}";
+        return super.toString();
+    }
+
+    /**
+     * @param v1=the point that we want to add
+     * @return new vector after the adding
+     */
+    public Vector add(Vector v1) {
+        if(v1.xyz==Double3.ZERO) {
+            throw new IllegalArgumentException("vector is zero");
+        }
+        return new Vector(super.add(v1).xyz);
+
+    }
+
+    /**
+     * @param myScale=the number
+     * @return new vector after scale
+     */
+    public Vector scale(double myScale) {
+        return new Vector(super.xyz.scale(myScale));
+    }
+
+    /**
+     * @param v1=the vector
+     * @return Scalar product between a vector and a number
+     */
+    public double dotProduct(Vector v1) {
+        return (this.xyz.d1*v1.xyz.d1) + (this.xyz.d2*v1.xyz.d2)+(this.xyz.d3*v1.xyz.d3);
+    }
+
+    /**
+     * @param v1=the vector
+     * @return A vector product between two vectors
+     */
+    public Vector crossProduct(Vector v1) {
+        return new Vector((this.xyz.d2*v1.xyz.d3-this.xyz.d3*v1.xyz.d2),(this.xyz.d3*v1.xyz.d1-this.xyz.d1*v1.xyz.d3),(this.xyz.d1*v1.xyz.d2-this.xyz.d2*v1.xyz.d1));
+    }
+
+    /**
+     * @return Vector length squared
+     */
+    public double lengthSquared(){
+        return this.xyz.d1*this.xyz.d1+this.xyz.d2*this.xyz.d2+this.xyz.d3*this.xyz.d3;
+    }
+
+    /**
+     * @return Vector length
+     */
+    public double length(){
+        return Math.sqrt(this.lengthSquared());
+    }
+
+    /**
+     * @return Normalized vector
+     */
+    public Vector normalize() {
+        return new Vector(this.xyz.d1/length(),this.xyz.d2/length(),this.xyz.d3/length());
+    }
+    /**
+     * create vector normal to this vector
+     *
+     * @return
+     */
+    public Vector createNormal() {
+        if (Util.isZero(this.xyz.d1))
+            return new Vector(1, 0, 0);
+
+        return new Vector(this.xyz.d2, -this.xyz.d1, 0).normalize();
     }
 }

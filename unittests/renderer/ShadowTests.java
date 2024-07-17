@@ -54,6 +54,14 @@ public class ShadowTests {
               new Point(-88, -88, 120));//the size;;
    }
 
+   /** Produce a picture of a sphere and triangle with point light and shade */
+   @Test
+   public void sphereTriangleInitial1() {
+      sphereTriangleHelper("shadowSphereTriangleInitial1", //
+              new Triangle(new Point(-70, -40, -0), new Point(-40, -70, -0), new Point(-68, -68, -4)), //
+              new Point(-88, -88, 120));//the size;;
+   }
+
    /**
     * Sphere-Triangle shading - move triangle up-right
     */
