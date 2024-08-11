@@ -30,6 +30,8 @@ public class ReflectionRefractionTests {
    private final Camera.Builder cameraBuilder = Camera.getBuilder()
            .setDirection(new Vector(0,0,-1), new Vector(0,1,0))
            .setRayTracer(new SimpleRayTracer(scene));
+//           .setMultithreading(3)
+//           .setadaptive(true);
 
    /** Produce a picture of a sphere lighted by a spot light */
    @Test

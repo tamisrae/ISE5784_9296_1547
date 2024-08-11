@@ -18,9 +18,11 @@ public class RenderTests {
    /** Camera builder of the tests */
    private final Camera.Builder camera = Camera.getBuilder()
            .setRayTracer(new SimpleRayTracer(scene))
-           .setLocation(Point.ZERO).setDirection(new Vector(0,0, -1), new Vector(0, 1, 0))
+           .setLocation(Point.ZERO).setDirection(new Vector(0, 0, -1), new Vector(0, 1, 0))
            .setVpDistance(100)
-           .setVpSize(500, 500);
+           .setVpSize(500, 500)
+           .setadaptive(true)
+           .setMultithreading(3);
 
    /** Produce a scene with basic 3D model and render it into a png image with a
     * grid */
@@ -43,6 +45,8 @@ public class RenderTests {
               .renderImage()
               .printGrid(100, new Color(YELLOW))
               .writeToImage();
+
+
    }
 
     /**
